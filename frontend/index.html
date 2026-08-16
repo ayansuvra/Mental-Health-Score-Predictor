@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nightlight — Digital Wellbeing Reading</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="sky" aria-hidden="true"></div>
+
+<main class="layout">
+
+  <!-- LEFT: hero + gauge -->
+  <section class="hero">
+    <p class="eyebrow">Digital Wellbeing Lab</p>
+    <h1 class="headline">How is your<br>phone treating<br>your mind?</h1>
+    <p class="subtext">
+      Answer a few questions about your screen habits, sleep, and stress —
+      a model trained on student survey data will give you an estimated
+      mental health reading.
+    </p>
+
+    <div class="gauge-card">
+      <svg class="gauge" viewBox="0 0 240 150" aria-hidden="true">
+        <defs>
+          <linearGradient id="arcGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#e2717a"/>
+            <stop offset="45%" stop-color="#f2b880"/>
+            <stop offset="100%" stop-color="#7fd8c4"/>
+          </linearGradient>
+        </defs>
+
+        <!-- track -->
+        <path d="M 20 130 A 100 100 0 0 1 220 130" class="gauge-track" />
+        <!-- gradient arc -->
+        <path d="M 20 130 A 100 100 0 0 1 220 130" class="gauge-arc" stroke="url(#arcGradient)" />
+
+        <!-- ticks -->
+        <g class="ticks" id="ticks"></g>
+
+        <!-- needle -->
+        <g id="needleGroup" class="needle-group" style="transform: rotate(-90deg);">
+          <line x1="120" y1="130" x2="120" y2="42" class="needle" />
+          <circle cx="120" cy="130" r="6" class="needle-hub" />
+        </g>
+      </svg>
+
+      <div class="gauge-readout">
+        <span class="gauge-value" id="scoreValue">—</span>
+        <span class="gauge-label" id="scoreLabel">awaiting your data</span>
+      </div>
+    </div>
+
+    <p class="disclaimer">
+      This is a statistical estimate for reflection, not a diagnosis.
+      If you're struggling, please talk to someone you trust or a professional.
+    </p>
+  </section>
+
+  <!-- RIGHT: intake form -->
+  <section class="form-panel">
+    <form id="predictForm" novalidate>
+
+      <fieldset class="group">
+        <legend>01 — About you</legend>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="age">Age</label>
+            <input type="number" id="age" name="Age" min="5" max="90" value="20" required>
+          </div>
+          <div class="field">
+            <label for="gender">Gender</label>
+            <select id="gender" name="Gender" required>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="academicLevel">Academic level</label>
+          <select id="academicLevel" name="Academic_Level" required>
+            <option value="High School">High School</option>
+            <option value="Undergraduate" selected>Undergraduate</option>
+            <option value="Graduate">Graduate</option>
+          </select>
+        </div>
+      </fieldset>
+
+      <fieldset class="group">
+        <legend>02 — Screen habits</legend>
+
+        <div class="field">
+          <label for="platform">Most used platform</label>
+          <select id="platform" name="Most_Used_Platform" required>
+            <option value="Instagram" selected>Instagram</option>
+            <option value="Facebook">Facebook</option>
+            <option value="LinkedIn">LinkedIn</option>
+            <option value="Twitter">Twitter</option>
+            <option value="WhatsApp">WhatsApp</option>
+            <option value="TikTok">TikTok</option>
+            <option value="Snapchat">Snapchat</option>
+            <option value="YouTube">YouTube</option>
+            <option value="LINE">LINE</option>
+            <option value="WeChat">WeChat</option>
+            <option value="VKontakte">VKontakte</option>
+            <option value="KakaoTalk">KakaoTalk</option>
+          </select>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="dailyUsage">Avg. daily usage <span>(hours)</span></label>
+            <input type="number" id="dailyUsage" name="Avg_Daily_Usage_Hours" min="0" max="24" step="0.1" value="4" required>
+          </div>
+          <div class="field">
+            <label for="unlocks">Daily unlocks</label>
+            <input type="number" id="unlocks" name="Daily_Unlocks" min="0" value="60" required>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset class="group">
+        <legend>03 — Rhythm of the day</legend>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="studyHours">Study <span>(hours)</span></label>
+            <input type="number" id="studyHours" name="Study_Hours" min="0" max="24" step="0.1" value="3" required>
+          </div>
+          <div class="field">
+            <label for="activityHours">Physical activity <span>(hours)</span></label>
+            <input type="number" id="activityHours" name="Physical_Activity_Hours" min="0" max="24" step="0.1" value="1" required>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="sleepHours">Sleep per night <span>(hours)</span></label>
+          <input type="number" id="sleepHours" name="Sleep_Hours_Per_Night" min="0" max="24" step="0.1" value="7" required>
+        </div>
+      </fieldset>
+
+      <fieldset class="group">
+        <legend>04 — How you've been feeling</legend>
+
+        <div class="field">
+          <label for="stress">Stress level</label>
+          <select id="stress" name="Stress_Level" required>
+            <option value="Low">Low</option>
+            <option value="Medium" selected>Medium</option>
+            <option value="High">High</option>
+            <option value="Very High">Very High</option>
+          </select>
+        </div>
+      </fieldset>
+
+      <div class="submit-row">
+        <button type="submit" id="submitBtn" class="submit-btn">
+          <span class="btn-label">Calculate my score</span>
+          <span class="btn-spinner" aria-hidden="true"></span>
+        </button>
+        <p class="error-msg" id="errorMsg" role="alert"></p>
+      </div>
+
+    </form>
+  </section>
+
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>

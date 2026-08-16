@@ -3,11 +3,19 @@ from fastapi import FastAPI
 from pydantic import BaseModel, Field
 import pandas as pd
 from typing import Literal
+from fastapi.middleware.cors import CORSMiddleware
 
 # load model
 model = joblib.load('models/mental_health_score_model.pkl')
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Student Data Pydantic Model
 class StudentData(BaseModel):
