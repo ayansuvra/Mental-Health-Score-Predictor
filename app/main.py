@@ -5,7 +5,7 @@ import pandas as pd
 from typing import Literal
 
 # load model
-model = joblib.load('models/Mental_Health_Prdictor_Model.pkl')
+model = joblib.load('models/mental_health_score_model.pkl')
 
 app = FastAPI()
 
