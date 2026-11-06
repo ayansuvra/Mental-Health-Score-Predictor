@@ -3,7 +3,7 @@
 // If you run `uvicorn app.main:app --reload` from the project root,
 // this is almost certainly correct as-is.
 // -----------------------------------------------------------------------
-const API_URL = "/api";
+const API_URL = "/predict";
 
 // Assumed score range coming back from the model (typical for this dataset).
 // Adjust SCORE_MIN / SCORE_MAX if your training data uses a different scale.
