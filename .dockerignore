@@ -1,0 +1,9 @@
+.git/
+data/
+frontend/
+myenv/
+notebook/
+report/
+ML Project.html
+README.md
+app/__pycache__/
