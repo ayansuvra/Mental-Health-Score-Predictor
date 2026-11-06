@@ -1,3 +1,4 @@
 ML Project.html
 myenv/
 app/__pycache__
+.env

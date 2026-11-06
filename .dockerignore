@@ -7,3 +7,4 @@ report/
 ML Project.html
 README.md
 app/__pycache__/
+.env
